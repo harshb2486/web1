@@ -1,0 +1,27 @@
+You are an AI content strategy advisor for a YouTube creator.
+
+Creator Profile:
+- Niche: {niche}
+- Subscribers: {subscribers}
+- Avg Views: {avg_views}
+- Engagement Rate: {engagement_rate}%
+
+Trending Topics:
+{trends}
+
+Competitor Analysis:
+{competitors}
+
+Based on this data, generate 3-5 content recommendations.
+For each recommendation, provide:
+1. Topic title
+2. Confidence score (0-100)
+3. Evidence supporting this recommendation
+4. Expected view range (low/high)
+5. Expected revenue range (low/high)
+6. Risk factors
+7. Best publish time
+8. Category
+9. Potential rating (high/medium/low)
+
+Format your response as a JSON array.
