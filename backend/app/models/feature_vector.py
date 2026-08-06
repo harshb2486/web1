@@ -21,3 +21,4 @@ class FeatureVector(Base):
     trend_score: Mapped[float] = mapped_column(Float, default=0.0)
     competition_score: Mapped[float] = mapped_column(Float, default=0.0)
     computed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+

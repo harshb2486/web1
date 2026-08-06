@@ -19,3 +19,4 @@ class TrendHistory(Base):
     category: Mapped[str] = mapped_column(String(100), default="")
     direction: Mapped[str] = mapped_column(String(20), default="stable")
     captured_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+

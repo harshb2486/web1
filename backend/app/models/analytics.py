@@ -16,3 +16,4 @@ class Analytics(Base):
     value: Mapped[float] = mapped_column(Float, default=0.0)
     breakdown: Mapped[dict] = mapped_column(JSON, default=dict)
     computed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+

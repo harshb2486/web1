@@ -9,6 +9,8 @@ def check_notifications(self, user_id: str = None):
     import asyncio
     from app.core.database import async_session
     from app.ai.notifications.service import NotificationService
+    from sqlalchemy import select
+    from app.models.user import User
 
     async def _run():
         service = NotificationService()
@@ -19,7 +21,14 @@ def check_notifications(self, user_id: str = None):
                 logger.info(f"Notifications checked for user {user_id}: {len(triggered)} triggered")
                 return {"triggered": len(triggered)}
             else:
-                logger.info("Notification check completed (all users)")
-                return {"triggered": 0}
+                result = await db.execute(select(User))
+                users = result.scalars().all()
+                total_triggered = 0
+                for user in users:
+                    triggered = await service.detect_and_notify(user.id, db)
+                    total_triggered += len(triggered)
+                await db.commit()
+                logger.info(f"Notifications checked for {len(users)} users: {total_triggered} triggered")
+                return {"triggered": total_triggered, "users": len(users)}
 
     return asyncio.run(_run())

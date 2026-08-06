@@ -1,5 +1,6 @@
 from typing import Dict
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select
 
 from app.ai.collectors.youtube_collector import YouTubeCollector
 from app.ai.collectors.google_trends_collector import GoogleTrendsCollector
@@ -16,7 +17,7 @@ from app.ai.engines.competitor_engine import CompetitorEngine
 from app.ai.engines.recommendation_engine import RecommendationEngine
 from app.ai.engines.prediction_engine import PredictionEngine
 from app.ai.notifications.detector import NotificationDetector, NotificationEmitter
-from app.models.raw_signal import RawSignal
+from app.models.profile import CreatorProfile
 
 
 class PipelineWorker:
@@ -43,7 +44,8 @@ class PipelineWorker:
         if progress_callback:
             await progress_callback(10)
 
-        raw_signals = await self._collect(user_id, db)
+        query = await self._get_user_query(user_id, db)
+        raw_signals = await self._collect(user_id, db, query)
         result["signals_collected"] = len(raw_signals)
 
         if progress_callback:
@@ -88,11 +90,20 @@ class PipelineWorker:
 
         return result
 
-    async def _collect(self, user_id: str, db: AsyncSession):
+    async def _get_user_query(self, user_id: str, db: AsyncSession) -> str:
+        result = await db.execute(select(CreatorProfile).where(CreatorProfile.user_id == user_id))
+        profile = result.scalar_one_or_none()
+        if profile and profile.niche:
+            return profile.niche
+        if profile and profile.channel_name:
+            return profile.channel_name
+        return "content creation"
+
+    async def _collect(self, user_id: str, db: AsyncSession, query: str):
         signals = []
         for collector in [self.youtube, self.trends, self.reddit, self.news]:
             try:
-                collected = await collector.collect({"query": "AI programming", "max_results": 5})
+                collected = await collector.collect({"query": query, "max_results": 5})
                 stored = await collector.store(collected, user_id, db)
                 signals.extend(stored)
             except Exception:

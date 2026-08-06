@@ -20,3 +20,4 @@ class ProcessedSignal(Base):
     trend_momentum: Mapped[float] = mapped_column(Float, default=0.0)
     metadata_: Mapped[dict] = mapped_column("metadata", JSON, default=dict)
     processed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+

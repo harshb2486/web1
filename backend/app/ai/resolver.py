@@ -85,18 +85,18 @@ class DataSourceResolver:
 
     def _demo_trends(self) -> List[Dict]:
         return [
-            {"id": "t1", "topic": "AI Content Creation Tools", "growthDays": 14, "competition": 0.6, "fit": 85, "searchVolume": 12000, "category": "Technology", "country": "US", "direction": "up"},
-            {"id": "t2", "topic": "Creator Economy Monetization", "growthDays": 7, "competition": 0.75, "fit": 72, "searchVolume": 8500, "category": "Business", "country": "US", "direction": "up"},
-            {"id": "t3", "topic": "Short-form Video Algorithm", "growthDays": 21, "competition": 0.4, "fit": 90, "searchVolume": 15000, "category": "Social Media", "country": "US", "direction": "up"},
-            {"id": "t4", "topic": "Podcast Growth Hacking", "growthDays": 30, "competition": 0.5, "fit": 65, "searchVolume": 6000, "category": "Media", "country": "US", "direction": "stable"},
-            {"id": "t5", "topic": "YouTube SEO Strategies", "growthDays": 10, "competition": 0.8, "fit": 95, "searchVolume": 22000, "category": "Marketing", "country": "US", "direction": "up"},
+            {"id": "t1", "topic": "AI Content Creation Tools", "growthDays": 14, "competition": "Medium", "fit": 85, "searchVolume": "+120%", "category": "Technology", "country": "US", "direction": "up"},
+            {"id": "t2", "topic": "Creator Economy Monetization", "growthDays": 7, "competition": "High", "fit": 72, "searchVolume": "+85%", "category": "Business", "country": "US", "direction": "up"},
+            {"id": "t3", "topic": "Short-form Video Algorithm", "growthDays": 21, "competition": "Low", "fit": 90, "searchVolume": "+150%", "category": "Social Media", "country": "US", "direction": "up"},
+            {"id": "t4", "topic": "Podcast Growth Hacking", "growthDays": 30, "competition": "Medium", "fit": 65, "searchVolume": "+60%", "category": "Media", "country": "US", "direction": "stable"},
+            {"id": "t5", "topic": "YouTube SEO Strategies", "growthDays": 10, "competition": "High", "fit": 95, "searchVolume": "+220%", "category": "Marketing", "country": "US", "direction": "up"},
         ]
 
     def _demo_recommendations(self) -> List[Dict]:
         return [
-            {"id": "r1", "topic": "AI Tools for Content Creators", "confidence": 92, "evidence": "High search volume with low competition. Growing 45% week-over-week.", "expectedViews": {"low": 50000, "high": 150000}, "expectedRevenue": {"low": 150, "high": 450}, "risks": ["Saturated topic in general", "Need to differentiate from existing content"], "similarContent": {"title": "10 AI Tools Every Creator Needs", "views": 850000}, "publishTime": "Tuesday 2PM", "category": "Technology", "potential": "high"},
-            {"id": "r2", "topic": "Behind the Scenes: My Content Creation Process", "confidence": 88, "evidence": "Authenticity-focused content performs well with your audience. Average 2.5x engagement.", "expectedViews": {"low": 30000, "high": 80000}, "expectedRevenue": {"low": 90, "high": 240}, "risks": ["May not appeal to new viewers", "Production quality expectations"], "similarContent": {"title": "A Day in My Life as a Creator", "views": 420000}, "publishTime": "Saturday 10AM", "category": "Lifestyle", "potential": "medium"},
-            {"id": "r3", "topic": "Revenue Breakdown: How I Make Money Online", "confidence": 85, "evidence": "Transparency content drives high watch time. Your audience values financial education.", "expectedViews": {"low": 40000, "high": 120000}, "expectedRevenue": {"low": 120, "high": 360}, "risks": ["Competitive space", "Need unique angle"], "similarContent": {"title": "I Made $10K in 30 Days", "views": 1200000}, "publishTime": "Wednesday 4PM", "category": "Business", "potential": "high"},
+            {"id": "r1", "topic": "AI Tools for Content Creators", "confidence": 92, "evidence": ["High search volume with low competition", "Growing 45% week-over-week"], "expectedViews": {"low": 50000, "high": 150000}, "expectedRevenue": {"low": 150, "high": 450}, "risks": ["Saturated topic in general"], "similarContent": {"title": "10 AI Tools Every Creator Needs", "views": 850000}, "publishTime": "Tuesday 7:00 PM", "category": "Technology", "potential": "high"},
+            {"id": "r2", "topic": "Behind the Scenes: My Content Creation Process", "confidence": 88, "evidence": ["Authenticity-focused content performs well", "Average 2.5x engagement"], "expectedViews": {"low": 30000, "high": 80000}, "expectedRevenue": {"low": 90, "high": 240}, "risks": ["May not appeal to new viewers"], "similarContent": {"title": "A Day in My Life as a Creator", "views": 420000}, "publishTime": "Saturday 10:00 AM", "category": "Lifestyle", "potential": "medium"},
+            {"id": "r3", "topic": "Revenue Breakdown: How I Make Money Online", "confidence": 85, "evidence": ["Transparency content drives high watch time", "Your audience values financial education"], "expectedViews": {"low": 40000, "high": 120000}, "expectedRevenue": {"low": 120, "high": 360}, "risks": ["Competitive space"], "similarContent": {"title": "I Made $10K in 30 Days", "views": 1200000}, "publishTime": "Wednesday 4:00 PM", "category": "Business", "potential": "high"},
         ]
 
     def _demo_competitors(self) -> List[Dict]:

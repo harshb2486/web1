@@ -48,43 +48,77 @@ class FeatureEngine:
     def _calc_ctr(self, videos) -> float:
         if not videos:
             return 0.05
-        return 0.065
+        total_views = sum(v.views for v in videos)
+        if total_views == 0:
+            return 0.05
+        impressions = total_views * 10
+        return min(total_views / impressions, 0.25)
 
     def _calc_avg_watch_time(self, videos) -> float:
         if not videos:
-            return 384.0
-        return 384.0
+            return 300.0
+        total_views = sum(v.views for v in videos)
+        if total_views == 0:
+            return 300.0
+        return min(total_views / len(videos) * 0.002, 1200.0)
 
     def _calc_growth(self, profile) -> float:
         if profile and profile.subscriber_count > 0:
-            return 3.2
+            base = min(profile.subscriber_count / 10000, 10.0)
+            return round(base, 1)
         return 0.0
 
     def _calc_retention(self, videos) -> float:
-        return 67.0
+        if not videos:
+            return 0.45
+        total_views = sum(v.views for v in videos)
+        if total_views == 0:
+            return 0.45
+        avg_views = total_views / len(videos)
+        if avg_views > 100000:
+            return 0.65
+        elif avg_views > 50000:
+            return 0.55
+        elif avg_views > 10000:
+            return 0.45
+        return 0.35
 
     def _calc_upload_frequency(self, videos) -> float:
         if not videos:
             return 2.0
-        return len(videos) / 4.0
+        return round(len(videos) / 4.0, 1)
 
     def _calc_view_velocity(self, videos) -> float:
         if not videos:
             return 5000.0
         total_views = sum(v.views for v in videos)
-        return total_views / max(len(videos), 1) / 24.0
+        return round(total_views / max(len(videos), 1) / 24.0, 1)
 
     def _calc_engagement(self, videos) -> float:
         if not videos:
-            return 7.8
-        return 7.8
+            return 5.0
+        total_views = sum(v.views for v in videos)
+        if total_views == 0:
+            return 5.0
+        avg_views = total_views / len(videos)
+        if avg_views > 100000:
+            return 8.5
+        elif avg_views > 50000:
+            return 7.0
+        elif avg_views > 10000:
+            return 5.5
+        return 4.0
 
     def _calc_trend_alignment(self, trends, profile) -> float:
         if not trends:
             return 50.0
         if profile and profile.niche:
             niche_lower = profile.niche.lower()
-            aligned = sum(1 for t in trends if any(kw in t.topic.lower() for kw in niche_lower.split()))
+            niche_words = niche_lower.split()
+            aligned = sum(
+                1 for t in trends
+                if any(kw in t.topic.lower() for kw in niche_words)
+            )
             return min((aligned / max(len(trends), 1)) * 100, 100.0)
         return 50.0
 
@@ -92,4 +126,6 @@ class FeatureEngine:
         if not trends:
             return 50.0
         high = sum(1 for t in trends if t.competition == "High")
-        return min((high / max(len(trends), 1)) * 100, 100.0)
+        medium = sum(1 for t in trends if t.competition == "Medium")
+        score = ((high * 1.0 + medium * 0.5) / max(len(trends), 1)) * 100
+        return min(score, 100.0)

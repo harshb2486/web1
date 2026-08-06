@@ -19,3 +19,4 @@ class RawSignal(Base):
     metrics: Mapped[dict] = mapped_column(JSON, default=dict)
     metadata_: Mapped[dict] = mapped_column("metadata", JSON, default=dict)
     collected_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+

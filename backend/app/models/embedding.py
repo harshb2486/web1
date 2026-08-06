@@ -18,3 +18,4 @@ class Embedding(Base):
     dimension: Mapped[int] = mapped_column(Integer, default=0)
     metadata_: Mapped[dict] = mapped_column("metadata", JSON, default=dict)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+

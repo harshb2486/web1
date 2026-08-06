@@ -18,3 +18,4 @@ class CompetitorHistory(Base):
     engagement_rate: Mapped[float] = mapped_column(Float, default=0.0)
     is_trending: Mapped[bool] = mapped_column(default=False)
     captured_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+

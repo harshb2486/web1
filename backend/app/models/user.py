@@ -23,3 +23,4 @@ class User(Base):
     competitors = relationship("Competitor", back_populates="user", lazy="selectin")
     calendar_events = relationship("CalendarEvent", back_populates="user", lazy="selectin")
     settings = relationship("UserSettings", back_populates="user", uselist=False, lazy="selectin")
+

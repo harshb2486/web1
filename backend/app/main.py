@@ -37,4 +37,4 @@ app.include_router(api_router)
 
 @app.get("/api/health")
 async def health_check():
-    return {"status": "ok", "environment": settings.ENVIRONMENT}
+    return {"status": "ok", "environment": settings.ENVIRONMENT, "database": "sqlite" if settings.is_sqlite else "postgresql"}

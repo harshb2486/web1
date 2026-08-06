@@ -6,7 +6,7 @@ Create Date: 2025-01-01
 """
 from alembic import op
 import sqlalchemy as sa
-from sqlalchemy.dialects.postgresql import JSONB
+
 
 revision = "003"
 down_revision = "002"
@@ -27,7 +27,7 @@ def upgrade() -> None:
         sa.Column("range_min", sa.Float(), nullable=True),
         sa.Column("range_max", sa.Float(), nullable=True),
         sa.Column("risk", sa.String(), nullable=True),
-        sa.Column("metadata", JSONB(), nullable=True),
+        sa.Column("metadata", JSON(), nullable=True),
         sa.Column("created_at", sa.DateTime(), nullable=False),
         sa.PrimaryKeyConstraint("id"),
     )
@@ -77,7 +77,7 @@ def upgrade() -> None:
         sa.Column("metric_type", sa.String(), nullable=False),
         sa.Column("period", sa.String(), nullable=False),
         sa.Column("value", sa.Float(), nullable=True),
-        sa.Column("breakdown", JSONB(), nullable=True),
+        sa.Column("breakdown", JSON(), nullable=True),
         sa.Column("computed_at", sa.DateTime(), nullable=False),
         sa.PrimaryKeyConstraint("id"),
     )
@@ -92,9 +92,9 @@ def upgrade() -> None:
         sa.Column("entity_type", sa.String(), nullable=False),
         sa.Column("entity_id", sa.String(), nullable=False),
         sa.Column("text", sa.String(), nullable=False),
-        sa.Column("vector", JSONB(), nullable=False),
+        sa.Column("vector", JSON(), nullable=False),
         sa.Column("dimension", sa.Integer(), nullable=True),
-        sa.Column("metadata", JSONB(), nullable=True),
+        sa.Column("metadata", JSON(), nullable=True),
         sa.Column("created_at", sa.DateTime(), nullable=False),
         sa.PrimaryKeyConstraint("id"),
     )
@@ -109,3 +109,4 @@ def downgrade() -> None:
     op.drop_table("competitor_history")
     op.drop_table("trend_history")
     op.drop_table("predictions")
+
